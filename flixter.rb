@@ -8,9 +8,10 @@ require 'open-uri'
 require 'net/http'   
 
 # get your own guidebox API Key: https://api.guidebox.com/production-key
-# set the api in your environment var in your shell:  $ export GUIDEBOX_API_KEY=foobar123abc
-# never not publish API keys to version control
+# set the api key as an environment var (e.g. shell:  $ export GUIDEBOX_API_KEY=foobar123abc)
+# don't publish API key to version control
 api_key = ENV["GUIDEBOX_API_KEY"]
+
 
 #get movie name from user 
 if ARGV.count > 0
@@ -52,7 +53,7 @@ search_results.each_pair do |k, v|
 	imdb = v if k == "imdb"
 end
 
-# DRY code by refactoring to use proc for API call 
+# DRY code by refactoring to use proc for API calls 
 # def http_request(uri)
 #   Net::HTTP.start(uri.host, uri.port) do |http|
 #     yield(http, uri)
@@ -89,14 +90,14 @@ audience.to_i >= 60 ? (audience_color = "green") : (audience_color = "red")
 puts Paint[title, :bright] 
 puts release_year
 puts "www.imdb.com/title/#{imdb}"
-puts " "
+puts 
 
 #print RT scores
 puts Paint["Rottentomatoes", :bright]
 puts "All Critics:  " + Paint["#{all_critics}%", critic_color, :bright]
 puts "Top Critics:  " + Paint["#{top_critics}%", top_critic_color, :bright]
 puts "Audience:  " + Paint["#{audience}%", audience_color, :bright]
-puts " "
+puts 
 puts Paint["Streaming Options", :bright]
 
 #make GET request for streaming locations
@@ -131,10 +132,6 @@ while i <= sources.count-1
 	puts " "
 i += 1
 end
-
-
-
-
 
 
 
